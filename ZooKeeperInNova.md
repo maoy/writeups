@@ -19,8 +19,25 @@ The fundamental issue is, the data to describe whether the node is alive is "tra
 ## ZooKeeper ServiceGroup driver
 
 ### How it works
-The ZooKeeper ServiceGroup driver works by using ZooKeeper ephemeral nodes. 
+The ZooKeeper ServiceGroup driver works by using ZooKeeper ephemeral nodes. At a compute worker node, after establishing a ZooKeeper sesion, it creates an ephemeral znode in the group directory. Ephemeral znodes has the same lifespan as the session. If the worker node or the `nova-compute` daemon crashes, or there is a network partition between the worker and the ZooKeeper server quorums, then the ephemeral znodes are removed automatically. The scheduler gets the group membership by doing a "ls" in group directory.
 
-### Installation
+### Installation and configuration
 
-### Configuration
+To use the ZooKeeper driver, of course you need to have both ZooKeeper servers and client libraries installed. Setting up ZooKeeper servers is outside the scope of this article. For the rest of the article, let's assume you have them installed, and their address is "192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181".
+
+To use ZooKeeper, you'll need two client-side Python libraries on every nova node. Here is the command to install then in Ubuntu:
+```
+sudo apt-get install python-zookeeper python-pip
+sudo pip install python-evzookeeper
+```
+`python-zookeeper` is the official ZooKeeper Python binding. `python-evzookeeper` is the library to make the official binding work with the eventlet threading model.
+
+After installation, make sure you have the following configuration snippet at the end of `/etc/nova/nova.conf` on every node:
+```
+servicegroup_driver="zk"
+
+[zookeeper]
+address="192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181"
+```
+
+That's it! After you start each Nova components, you can try to use `nova-manage service list` to check the liveness of each compute node.
