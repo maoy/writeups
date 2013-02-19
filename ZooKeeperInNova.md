@@ -30,7 +30,7 @@ To use ZooKeeper, you'll need two client-side Python libraries on every nova nod
 sudo apt-get install python-zookeeper python-pip
 sudo pip install evzookeeper
 ```
-`python-zookeeper` is the official ZooKeeper Python binding. `python-evzookeeper` is the library to make the official binding work with the eventlet threading model.
+`python-zookeeper` is the official ZooKeeper Python binding. [evzookeeper](https://github.com/maoy/python-evzookeeper) is the library to make the official binding work with the eventlet threading model.
 
 After installation, make sure you have the following configuration snippet at the end of `/etc/nova/nova.conf` on every node:
 ```
