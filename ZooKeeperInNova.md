@@ -28,7 +28,7 @@ To use the ZooKeeper driver, of course you need to have both ZooKeeper servers a
 To use ZooKeeper, you'll need two client-side Python libraries on every nova node. Here is the command to install then in Ubuntu:
 ```
 sudo apt-get install python-zookeeper python-pip
-sudo pip install python-evzookeeper
+sudo pip install evzookeeper
 ```
 `python-zookeeper` is the official ZooKeeper Python binding. `python-evzookeeper` is the library to make the official binding work with the eventlet threading model.
 
