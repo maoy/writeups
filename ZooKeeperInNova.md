@@ -23,7 +23,7 @@ The ZooKeeper ServiceGroup driver works by using ZooKeeper ephemeral nodes. At a
 
 ### Installation and configuration
 
-To use the ZooKeeper driver, of course you need to have both ZooKeeper servers and client libraries installed. Setting up ZooKeeper servers is outside the scope of this article. For the rest of the article, let's assume you have them installed, and their address is "192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181".
+To use the ZooKeeper driver, of course you need to have both ZooKeeper servers and client libraries installed. Setting up ZooKeeper servers is outside the scope of this article. For the rest of the article, let's assume you have them installed, and their address is 192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181.
 
 To use ZooKeeper, you'll need two client-side Python libraries on every nova node. Here is the command to install then in Ubuntu:
 ```
