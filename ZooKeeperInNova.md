@@ -15,7 +15,7 @@ Currently there are two drivers implemented and merged in master: database and Z
 ### Database ServiceGroup driver
 
 The database driver is how Nova has been tracking node liveness since the first release, and it's the default driver. In a compute worker, it periodically sends a db update command to MySQL, saying "I'm OK" with a timestamp. A pre-defined timeout (`service_down_time`) is used to determine if a node is dead.
-The driver has two limitations, which may or may not be an issue for you, depending on your setup. First, the more compute worker nodes you have, the more pressure you put on the database. Second, the timeout is by default 60 seconds. So, it might take a while to detect node failures. Of course you could try to reduce the timeout value, but you would also need to make the db update more frequently, which again increases the db workload.
+The driver has two limitations, which may or may not be an issue for you, depending on your setup. First, the more compute worker nodes you have, the more pressure you put on the database. Second, the timeout is by default 60 seconds. So, it might take a while to detect node failures. Of course you could try to reduce the timeout value, but you would also need to make the DB update more frequently, which again increases the DB workload.
 
 The fundamental issue is, the data to describe whether the node is alive is "transient" --- it's basically useless after a couple of seconds. Other data in the database, such as the entries to describe which users own what VMs, are persistent. But they are treated the same way since they are stored in the same database. This is also part of the motivation where we started the ServiceGroup abstraction so that we have a chance to treat them separately.
 
